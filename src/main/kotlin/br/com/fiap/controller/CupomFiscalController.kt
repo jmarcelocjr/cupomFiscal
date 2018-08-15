@@ -1,5 +1,6 @@
 package br.com.fiap.controller
 
+import br.com.fiap.generator.CupomFiscalGenerator
 import br.com.fiap.service.PedidoService
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,12 +23,14 @@ class CupomFiscalController {
         val idPedido = jsonObject.getInt("idPedido")
 
         var result = false
+
+        val cupomFiscalGenerator =
         if (idPedido == -1) {
-            val pedidos = pedidoService.findAll();
-            //result = cupomFiscalGenerator.gerar(pedidos)
+            val pedidos = pedidoService.findAll()!!
+            result = CupomFiscalGenerator.gerar(pedidos)
         } else {
-            val pedido = pedidoService.findById(idPedido)
-            //result = cupomFiscalGenerator.gerar(pedido)
+            val pedido = pedidoService.findById(idPedido)!!
+            result = CupomFiscalGenerator.gerar(pedido)
         }
 
         return ResponseEntity.ok(result)
