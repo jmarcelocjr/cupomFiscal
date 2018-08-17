@@ -10,11 +10,15 @@ class PedidoService {
     @Autowired
     lateinit var pedidoRepository: PedidoRepository
 
-    fun findById(id: Int): Pedido? {
+    fun findById(id: Long): Pedido? {
         return pedidoRepository.findById(id).orElse(null)
     }
 
     fun findAll(): List<Pedido>? {
         return pedidoRepository.findAll().orEmpty()
+    }
+
+    fun save(pedido: Pedido) {
+        pedidoRepository.save(pedido)
     }
 }

@@ -1,11 +1,11 @@
 package br.com.fiap.entity
 
-import org.springframework.data.annotation.Id
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
+import javax.persistence.*
 
 @Entity
-data class Pedido (
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY) val id: Int
+class Pedido (
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var codigo: Long?,
+    @ManyToMany() @JoinColumn(name = "pedido_itens") var itens: List<Item>?,
+    @ManyToOne() @JoinColumn(name = "cliente_id") var cliente: Cliente,
+    @ManyToOne() @JoinColumn(name = "empresa_id") var empresa: Empresa
 )
