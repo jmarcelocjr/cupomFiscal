@@ -5,10 +5,7 @@ import br.com.fiap.service.PedidoService
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/cupomFiscal")
@@ -20,12 +17,11 @@ class CupomFiscalController {
     @PostMapping("/gerar")
     fun gerar (@RequestBody(required = true) jsonString: String): ResponseEntity<Boolean> {
         val jsonObject = JSONObject(jsonString)
-        val idPedido = jsonObject.getInt("idPedido")
+        val idPedido = jsonObject.getLong("idPedido")
 
-        var result = false
+        var result: Boolean
 
-        val cupomFiscalGenerator =
-        if (idPedido == -1) {
+        if (idPedido.equals(-1)) {
             val pedidos = pedidoService.findAll()!!
             result = CupomFiscalGenerator.gerar(pedidos)
         } else {
@@ -34,5 +30,10 @@ class CupomFiscalController {
         }
 
         return ResponseEntity.ok(result)
+    }
+
+    @GetMapping("/")
+    fun welcome ():ResponseEntity<String> {
+        return ResponseEntity.ok("Hello World")
     }
 }

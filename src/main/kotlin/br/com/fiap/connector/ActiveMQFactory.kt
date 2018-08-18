@@ -7,7 +7,7 @@ class ActiveMQFactory {
     companion object {
 
         fun getConnection(): Connection {
-            val connectionFactory = ActiveMQConnectionFactory("localhost:32773")
+            val connectionFactory = ActiveMQConnectionFactory("localhost:32768")
 
             val connection = connectionFactory.createConnection("admin", "admin")
 

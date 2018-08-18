@@ -61,9 +61,12 @@
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-client -->
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-client</artifactId>
-            <version>5.15.2</version>
+            <artifactId>activemq-broker</artifactId>
         </dependency>
         <dependency>
             <groupId>com.itextpdf</groupId>

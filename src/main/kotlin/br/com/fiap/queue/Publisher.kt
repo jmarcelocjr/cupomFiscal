@@ -1,6 +1,7 @@
 package br.com.fiap.queue
 
 import br.com.fiap.connector.ActiveMQFactory
+import br.com.fiap.entity.Pedido
 import javax.jms.DeliveryMode
 import javax.jms.Destination
 import javax.jms.MessageProducer
@@ -9,12 +10,13 @@ import javax.jms.Session
 class Publisher {
 
     companion object {
-        fun sendTo(queue: String, data: String): Boolean{
+        fun sendTo(queue: String, data: Pedido): Boolean{
             try {
                 val session = getSession()
                 val publisher = getPublisher(session, queue)
 
-                val message = session.createTextMessage(data)
+//                val message = session.createTextMessage(data)
+                val message = session.createObjectMessage(data)
 
                 publisher.send(message)
 
@@ -29,14 +31,13 @@ class Publisher {
             return true
         }
 
-        fun sendTo(queue: String, data: List<String>): Boolean{
+        fun sendTo(queue: String, data: List<Pedido>): Boolean{
             try {
                 val session = getSession()
                 val publisher = getPublisher(session, queue)
 
-                for (text in data) {
-                    val message = session.createTextMessage(text)
-
+                data.forEach {
+                    val message = session.createObjectMessage(it)
                     publisher.send(message)
                 }
 

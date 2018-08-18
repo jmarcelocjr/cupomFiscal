@@ -1,15 +1,14 @@
 package br.com.fiap.entity
 
+import java.io.Serializable
 import javax.persistence.*
 
 @Entity
-class Empresa(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var codigo: Long?,
-    var nome: String?,
-    var endereco: String?,
-    var cnpj: String?,
-    var ie: String?,
-    var im: String?,
-    @OneToMany(cascade = arrayOf(CascadeType.ALL), fetch = FetchType.LAZY) var clientes: List<Cliente>?,
-    @OneToMany(cascade = arrayOf(CascadeType.ALL), fetch = FetchType.LAZY) var pedidos: List<Pedido>?
-)
+data class Empresa(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var codigo: Long? = null,
+    var nome: String = "",
+    var endereco: String = "",
+    var cnpj: String = "",
+    var ie: String = "",
+    var im: String = ""
+): Serializable

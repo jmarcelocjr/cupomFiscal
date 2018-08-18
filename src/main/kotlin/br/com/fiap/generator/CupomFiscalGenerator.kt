@@ -8,16 +8,11 @@ class CupomFiscalGenerator {
     companion object {
         private val queue = "cupomFiscal.gerar"
         fun gerar(pedido: Pedido): Boolean {
-            return Publisher.sendTo(queue, pedido.id.toString())
+            return Publisher.sendTo(queue, pedido)
         }
 
         fun gerar(pedidos: List<Pedido>): Boolean {
             var sended = false
-
-            val pedidos = pedidos.stream().map {
-                pedido: Pedido -> pedido.id.toString()
-            }.collect(Collectors.toList<String>())
-
             return  Publisher.sendTo(queue, pedidos)
         }
     }

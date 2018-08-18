@@ -1,21 +1,13 @@
 package br.com.fiap.report
 
-import br.com.fiap.entity.Empresa
 import br.com.fiap.entity.Pedido
-import br.com.fiap.service.EmpresaService
 import com.itextpdf.text.Document
 import com.itextpdf.text.DocumentException
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
-import org.springframework.beans.factory.annotation.Autowired
 import java.io.FileOutputStream
-import java.io.IOException
-import java.util.Date
 
 class GeradorPDF {
-
-    @Autowired
-    lateinit var empresaService: EmpresaService
 
     fun gerar(pedido: Pedido) {
 
@@ -23,7 +15,7 @@ class GeradorPDF {
         var total = 0.0
 
         try {
-            val empresa = pedido.empresa
+            val empresa = pedido.empresa!!
             PdfWriter.getInstance(document, FileOutputStream("C:\\teste\\boleto.pdf"))
             document.open()
 
@@ -52,6 +44,8 @@ class GeradorPDF {
                         + it.valor.toString()
                     )
                 )
+
+                index++
                 total += if (it.valor != null) it.valor!! else 0.0
             }
 
