@@ -18,10 +18,11 @@ class CupomFiscalController {
     fun gerar (@RequestBody(required = true) jsonString: String): ResponseEntity<Boolean> {
         val jsonObject = JSONObject(jsonString)
         val idPedido = jsonObject.getLong("idPedido")
+        System.out.println(idPedido)
 
         var result: Boolean
 
-        if (idPedido.equals(-1)) {
+        if (idPedido.equals(-1.toLong())) {
             val pedidos = pedidoService.findAll()!!
             result = CupomFiscalGenerator.gerar(pedidos)
         } else {
