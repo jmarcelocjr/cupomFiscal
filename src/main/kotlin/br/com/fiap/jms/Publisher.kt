@@ -8,12 +8,33 @@ import org.springframework.jms.core.JmsTemplate
 
 class Publisher {
 
+    private lateinit var url: String
+    private lateinit var queue: String
+
+    fun setUrl(url: String): Publisher {
+        this.url = url
+        return this
+    }
+
+    fun setQueue(queue: String): Publisher {
+        this.queue = queue
+        return this
+    }
+
     fun send(data: Pedido): Boolean{
         try {
-            val jmsTemplate = JmsTemplate(ActiveMQFactory.getConnection())
-            val jmsMessagingTemplate = JmsMessagingTemplate(jmsTemplate)
+            val thread = Thread(Runnable {
+                System.out.println("Publicando pedido #${data.codigo}")
 
-            jmsMessagingTemplate.convertAndSend(ActiveMQQueue("cupomFiscal.gerar"), data)
+                val activeMQFactory = ActiveMQFactory()
+                val jmsTemplate = JmsTemplate(activeMQFactory.getConnection(this.url))
+                val jmsMessagingTemplate = JmsMessagingTemplate(jmsTemplate)
+
+                jmsMessagingTemplate.convertAndSend(ActiveMQQueue(this.queue), data)
+            })
+
+            thread.start()
+
         } catch (e: Exception) {
             System.out.println("Error on sending to publisher: "+e.message)
             e.printStackTrace()

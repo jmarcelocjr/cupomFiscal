@@ -2,7 +2,6 @@ package br.com.fiap.generator
 
 import br.com.fiap.entity.Pedido
 import br.com.fiap.jms.Publisher
-import org.springframework.beans.factory.annotation.Autowired
 
 class CupomFiscalGenerator {
     companion object {
@@ -11,12 +10,12 @@ class CupomFiscalGenerator {
             return Publisher()
         }
 
-        fun gerar(pedido: Pedido): Boolean {
-            return publisher!!.send(pedido)
+        fun gerar(activeMQUrl: String, queue: String, pedido: Pedido): Boolean {
+            return publisher!!.setUrl(activeMQUrl).setQueue(queue).send(pedido)
         }
 
-        fun gerar(pedidos: List<Pedido>): Boolean {
-            return  publisher!!.send(pedidos)
+        fun gerar(activeMQUrl: String, queue: String, pedidos: List<Pedido>): Boolean {
+            return  publisher!!.setUrl(activeMQUrl).setQueue(queue).send(pedidos)
         }
     }
 }

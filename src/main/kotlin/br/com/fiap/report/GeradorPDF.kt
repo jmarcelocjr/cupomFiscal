@@ -2,7 +2,6 @@ package br.com.fiap.report
 
 import br.com.fiap.entity.Pedido
 import com.itextpdf.text.Document
-import com.itextpdf.text.DocumentException
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
 import java.io.FileOutputStream
@@ -10,14 +9,14 @@ import java.io.FileOutputStream
 class GeradorPDF {
 
     companion object {
-        fun gerar(pedido: Pedido) {
+        fun gerar(dir: String, pedido: Pedido) {
             System.out.println("Gerando pedido #${pedido.codigo}")
             val document = Document()
             var total = 0.0
 
             try {
                 val empresa = pedido.empresa!!
-                PdfWriter.getInstance(document, FileOutputStream("/home/mcerqueira/pdfs/${pedido.codigo}.pdf"))
+                PdfWriter.getInstance(document, FileOutputStream("${dir}/${pedido.codigo}.pdf"))
                 document.open()
 
                 document.add(Paragraph("                                                 " + empresa.nome))
