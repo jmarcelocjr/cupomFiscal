@@ -1,8 +1,6 @@
 # cupomFiscal - Roupas FIAP
 
 ## Instruções
-
-
 * Iniciar o banco de dados
   * criar o database cupomFiscal
   * Importar o dump.sql localizado no diretório "extras" do projeto para o banco de dados
@@ -27,3 +25,6 @@
     "idPedido": ID_PEDIDO
 }
 ```
+
+###Extras
+* Diagrama EIP encontra-se no diretório extras
