@@ -1,7 +1,5 @@
 # cupomFiscal - Roupas FIAP
 
-Foobar is a Python library for dealing with word pluralization.
-
 ## Instruções
 
 
